@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+ database:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: interactions
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    network_mode: "host"
+ backend:
+    container_name: backend
+    build: 
+      context: ./api-server
+    ports:
+      - "3001:3001"
+    network_mode: "host"
+ frontend:
+    container_name: mixer_machine
+    build: 
+       context: ./web-app
+    ports:
+      - "3000:3000"
+    network_mode: "host"
+
+
+
+
